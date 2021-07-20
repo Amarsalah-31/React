@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: serif;
+}
+
+
+html {
+  display: flex;
+  justify-content: center;
+  background: #556b2f;
+  row-gap: 20px;
+}
+
+
+h1, h2 {
+  text-align: center;
+  margin-top: 100px;
+  color: lightgoldenrodyellow;
+}
+h1 {
+  font-size: 3rem;
+}
+
+
+
+button {
+ border: none;
+  width: 150px;
+  margin: 20px;
+  height: 150px;
+  border-radius: 999px;
+  color: red;
+  font-size: 40px;
+  justify-content: space-between;
+}
+.green {
+  background-color:white;}
+.red {
+  background-color: white;
+}
+
+ 
