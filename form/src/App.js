@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import Input from './components/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
@@ -9,6 +10,7 @@ class App extends React.Component {
       return (
         <div className="bg-secondary">
           <h2>Form Submitted</h2>
+          <h2 className="text-center">Login</h2>
         </div>
       )
   }
