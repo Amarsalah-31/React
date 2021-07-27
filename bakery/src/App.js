@@ -1,77 +1,104 @@
-import React from 'react';
-import Add from './components/Add';
-import List from './components/List';
-import Pay from './components/Pay'
-import Button from './components/core/Button'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+
+// Bootstrap//
+import "bootstrap/dist/css/bootstrap.min.css";
+
+//Components//
+import Add from "./components/Add";
+import List from "./components/List";
+import Pay from "./components/Pay";
+import Button from "./components/core/Button";
+//CSS //
+import "./App.css"
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state={
-      activeTab: 'add',
+  constructor() {
+    super();
+
+    this.state = {
+      activeTab: "add",
       items: [],
+      subTotal: 0,
+    };
+  }
+
+  renderTab = () => {
+    switch (this.state.activeTab) {
+      case "add":
+        return <Add addItem={this.addItem} />;
+      case "list":
+        return <List items={this.state.items} />;
+      case "pay":
+        return <Pay items={this.state.items} subTotal={this.state.subTotal} />;
+      default:
+        return <p>404 Not Found</p>;
     }
-    this.onClick = this.onClick.bind(this);
-    this.onAdd = this.onAdd.bind(this);
-  }
+  };
 
-  onClick(value) {
-    console.log('App#onClick value', value);
-    this.setState({ activeTab: value})    
-  }
+  selectAdd = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      activeTab: "add",
+    }));
+  };
 
-  onAdd(price, input) {
-    console.log('App#onAdd', price, input);
-    let items = this.state.items;
-    items.push({input, price})
-    this.setState({ 
-      items,
-      activeTab: 'list'
-    });
-  }
+  selectList = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      activeTab: "list",
+    }));
+  };
+
+  selectPay = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      activeTab: "pay",
+    }));
+  };
+
+  addItem = (name, price) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      items: [
+        ...prevState.items,
+        {
+          name: name,
+          price: price,
+        },
+      ],
+    }));
+  };
 
   render() {
-    const { activeTab, items } = this.state;
-    console.log('activeTab', activeTab)
-    console.log('this.renderTabAdd', this.renderTabAdd)
-    console.log('this.renderTabList', this.renderTabList)
-    console.log('this.renderTabPay', this.renderTabPay)
-    return(
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6 col-12">
-            <h1 className="text-center">Bakery</h1>
-            <Button 
-              isSelected={activeTab === 'add'}
-              onClick={(e) => this.onClick('add')}> 
-                Add
-            </Button>
-            <Button 
-              isSelected={activeTab === 'list'}
-              onClick={(e) => this.onClick('list')}>
-                List
-            </Button>
-            <Button 
-              isSelected={activeTab === 'pay'}
-              onClick={(e) => this.onClick('pay')}>
-                Pay
-            </Button>
-          </div>
+    return (
+      <div className="container p-5">
+        <div>
+          <Button
+            isSelected={this.state.activeTab === "add"}
+            onClick={this.selectAdd}
+          >
+            Add
+          </Button>
+
+          <Button
+            isSelected={this.state.activeTab === "list"}
+            onClick={this.selectList}
+          >
+            List
+          </Button>
+
+          <Button
+            isSelected={this.state.activeTab === "pay"}
+            onClick={this.selectPay}
+          >
+            Pay
+          </Button>
         </div>
-        <div className="row">
-          <div className="col-lg-6 col-12">
-            {/* {activeTab === 'add' ? <Add /> : null}
-            {activeTab === 'list' ? <List /> : null}
-            {activeTab === 'pay' ? <Pay /> : null} */}
-            {activeTab === 'add' && <Add onAdd={this.onAdd} />}
-            {activeTab === 'list' && <List list={items} />}
-            {activeTab === 'pay' && <Pay list={items} />}
-          </div> 
-        </div>
+
+        {this.renderTab()}
       </div>
     );
   }
 }
 
-export default App
+export default App;

@@ -1,0 +1,16 @@
+body {
+  text-align: center;
+}
+.card {
+  width: 18rem;
+}
+img {
+  margin: 10px auto;
+  width: 200px;
+}
+.card-body {
+  margin: 0 10px;
+}
+.card-body{
+  margin-right: 10px;
+}
